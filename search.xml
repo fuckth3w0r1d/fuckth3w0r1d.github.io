@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>LITCTF2025</title>
+      <link href="/2025/06/30/LITCTF2025/"/>
+      <url>/2025/06/30/LITCTF2025/</url>
+      
+        <content type="html"><![CDATA[<h2 id="nc"><a href="#nc" class="headerlink" title="nc"></a>nc</h2><h3 id="复盘-命令过滤-getshell指令"><a href="#复盘-命令过滤-getshell指令" class="headerlink" title="复盘&#x2F;命令过滤&#x2F;getshell指令"></a>复盘&#x2F;命令过滤&#x2F;getshell指令</h3><p>把附件拖进ida发现得出了我看不懂的一坨玩意<br>在re手的指导下，直接用vscode打开得到了一段python代码，如下<br></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/python3</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;input your command&quot;</span>)</span><br><span class="line"></span><br><span class="line">blacklist = [<span class="string">&#x27;cat&#x27;</span>,<span class="string">&#x27;ls&#x27;</span>,<span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;cd&#x27;</span>,<span class="string">&#x27;echo&#x27;</span>,<span class="string">&#x27;&lt;&#x27;</span>,<span class="string">&#x27;$&#123;IFS&#125;&#x27;</span>,<span class="string">&#x27;sh&#x27;</span>,<span class="string">&#x27;\\&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    command = <span class="built_in">input</span>()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> blacklist:</span><br><span class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> command:</span><br><span class="line">            exit(<span class="number">0</span>)</span><br><span class="line">    os.system(command)</span><br></pre></td></tr></table></figure><p>直接给到了system执行，但是过滤了一系列命令<br></p><p>我第一思路是变量替换,输入如下<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a=s;b=h;$a<span class="variable">$b</span></span><br></pre></td></tr></table></figure><p>后来又发现直接输入$0也可getshell</p><h3 id="复现平台关了，剩下题目以后再说"><a href="#复现平台关了，剩下题目以后再说" class="headerlink" title="复现平台关了，剩下题目以后再说"></a>复现平台关了，剩下题目以后再说</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF_pwn </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 复盘 </tag>
+            
+            <tag> 复现 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>御网杯2025</title>
       <link href="/2025/05/17/%E5%BE%A1%E7%BD%91%E6%9D%AF2025/"/>
       <url>/2025/05/17/%E5%BE%A1%E7%BD%91%E6%9D%AF2025/</url>
@@ -21,10 +48,6 @@
         <tags>
             
             <tag> 复盘 </tag>
-            
-            <tag> ret2libc </tag>
-            
-            <tag> ret2text </tag>
             
         </tags>
       
@@ -53,12 +76,6 @@
             
             <tag> 复现 </tag>
             
-            <tag> ret2libc </tag>
-            
-            <tag> 栈迁移 </tag>
-            
-            <tag> orw </tag>
-            
         </tags>
       
     </entry>
@@ -83,10 +100,6 @@
         <tags>
             
             <tag> 复盘 </tag>
-            
-            <tag> ret2libc </tag>
-            
-            <tag> shellcode </tag>
             
         </tags>
       
@@ -114,10 +127,6 @@
             <tag> 复盘 </tag>
             
             <tag> 复现 </tag>
-            
-            <tag> ret2libc </tag>
-            
-            <tag> got表覆写 </tag>
             
         </tags>
       
