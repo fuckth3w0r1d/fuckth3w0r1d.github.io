@@ -13,7 +13,9 @@
       
       <categories>
           
-          <category> pwn/bin </category>
+          <category> pwn </category>
+          
+          <category> bin </category>
           
       </categories>
       
@@ -38,7 +40,13 @@
       
       <categories>
           
-          <category> pwn/heap/tcache attack/tcache_perthread_struct </category>
+          <category> pwn </category>
+          
+          <category> heap </category>
+          
+          <category> tcache attack </category>
+          
+          <category> tcache_perthread_struct </category>
           
       </categories>
       
@@ -63,13 +71,17 @@
       
       <categories>
           
-          <category> pwn/heap/uaf </category>
+          <category> pwn </category>
           
-          <category> pwn/heap/heap overflow </category>
+          <category> heap </category>
           
-          <category> pwn/heap/fastbin attack </category>
+          <category> uaf </category>
           
-          <category> pwn/heap/unsortedbin attack </category>
+          <category> heap overflow </category>
+          
+          <category> fastbin attack </category>
+          
+          <category> unsortedbin attack </category>
           
       </categories>
       
@@ -96,7 +108,9 @@
       
       <categories>
           
-          <category> pwn/bin </category>
+          <category> pwn </category>
+          
+          <category> bin </category>
           
       </categories>
       
@@ -123,11 +137,19 @@
       
       <categories>
           
-          <category> pwn/stack/canary/伪随机数 </category>
+          <category> pwn </category>
           
-          <category> pwn/stack/ROP/ret2csu </category>
+          <category> stack </category>
           
-          <category> pwn/stack/ROP/ret2libc </category>
+          <category> ROP </category>
+          
+          <category> canary </category>
+          
+          <category> ret2libc </category>
+          
+          <category> 伪随机数 </category>
+          
+          <category> ret2csu </category>
           
       </categories>
       
@@ -152,11 +174,17 @@
       
       <categories>
           
-          <category> pwn/stack/ROP/ret2libc </category>
+          <category> pwn </category>
           
-          <category> pwn/stack/ROP/栈迁移 </category>
+          <category> stack </category>
           
-          <category> pwn/stack/ROP/orw </category>
+          <category> ROP </category>
+          
+          <category> ret2libc </category>
+          
+          <category> 栈迁移 </category>
+          
+          <category> orw </category>
           
       </categories>
       
@@ -183,9 +211,15 @@
       
       <categories>
           
-          <category> pwn/stack/ROP/ret2libc </category>
+          <category> pwn </category>
           
-          <category> pwn/shellcode </category>
+          <category> stack </category>
+          
+          <category> ROP </category>
+          
+          <category> ret2libc </category>
+          
+          <category> shellcode </category>
           
       </categories>
       
@@ -210,9 +244,15 @@
       
       <categories>
           
-          <category> pwn/stack/ROP/ret2libc </category>
+          <category> pwn </category>
           
-          <category> pwn/vm </category>
+          <category> stack </category>
+          
+          <category> ROP </category>
+          
+          <category> ret2libc </category>
+          
+          <category> vm </category>
           
       </categories>
       
