@@ -13,7 +13,7 @@
       
       <categories>
           
-          <category> CTF/pwn/bin </category>
+          <category> pwn/bin </category>
           
       </categories>
       
@@ -38,7 +38,7 @@
       
       <categories>
           
-          <category> CTF/pwn/heap/tcache attack/tcache_perthread_struct </category>
+          <category> pwn/heap/tcache attack/tcache_perthread_struct </category>
           
       </categories>
       
@@ -63,13 +63,13 @@
       
       <categories>
           
-          <category> CTF/pwn/heap/uaf </category>
+          <category> pwn/heap/uaf </category>
           
-          <category> CTF/pwn/heap/heap overflow </category>
+          <category> pwn/heap/heap overflow </category>
           
-          <category> CTF/pwn/heap/fastbin attack </category>
+          <category> pwn/heap/fastbin attack </category>
           
-          <category> CTF/pwn/heap/unsortedbin attack </category>
+          <category> pwn/heap/unsortedbin attack </category>
           
       </categories>
       
@@ -96,7 +96,7 @@
       
       <categories>
           
-          <category> CTF_pwn/bin </category>
+          <category> pwn/bin </category>
           
       </categories>
       
@@ -123,11 +123,11 @@
       
       <categories>
           
-          <category> CTF/pwn/stack/canary/伪随机数 </category>
+          <category> pwn/stack/canary/伪随机数 </category>
           
-          <category> CTF/pwn/stack/ROP/ret2csu </category>
+          <category> pwn/stack/ROP/ret2csu </category>
           
-          <category> CTF/pwn/stack/ROP/ret2libc </category>
+          <category> pwn/stack/ROP/ret2libc </category>
           
       </categories>
       
@@ -152,11 +152,11 @@
       
       <categories>
           
-          <category> CTF/pwn/stack/ROP/ret2libc </category>
+          <category> pwn/stack/ROP/ret2libc </category>
           
-          <category> CTF/pwn/stack/ROP/栈迁移 </category>
+          <category> pwn/stack/ROP/栈迁移 </category>
           
-          <category> CTF/pwn/stack/ROP/orw </category>
+          <category> pwn/stack/ROP/orw </category>
           
       </categories>
       
@@ -183,9 +183,9 @@
       
       <categories>
           
-          <category> CTF/pwn/stack/ROP/ret2libc </category>
+          <category> pwn/stack/ROP/ret2libc </category>
           
-          <category> CTF/pwn/shellcode </category>
+          <category> pwn/shellcode </category>
           
       </categories>
       
@@ -210,9 +210,9 @@
       
       <categories>
           
-          <category> CTF/pwn/stack/ROP/ret2libc </category>
+          <category> pwn/stack/ROP/ret2libc </category>
           
-          <category> CTF/pwn/vm </category>
+          <category> pwn/vm </category>
           
       </categories>
       
