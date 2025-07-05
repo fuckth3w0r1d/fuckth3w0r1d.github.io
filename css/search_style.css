@@ -1,0 +1,15 @@
+.search-dialog {
+  width: 80% !important;
+  max-width: 800px !important;
+}
+.search-input {
+  width: 100% !important;
+  padding: 15px 20px !important;
+  font-size: 1.2em !important;
+}
+local-search .search-result {
+  max-height: 70vh !important;
+}
+local-search .search-result-item {
+  padding: 15px !important;
+}

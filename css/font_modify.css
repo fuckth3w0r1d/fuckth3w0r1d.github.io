@@ -1,0 +1,59 @@
+/* --------------- 全局字体设置 --------------- */
+body {
+  font-size: 16px; /* 基础字体大小*/
+}
+
+/* --------------- 首页文章列表 --------------- */
+.home-post {
+  &-title {
+    font-size: 1.8rem !important; /*标题大小*/
+  }
+  
+  .post-content {
+    font-size: 1.3rem !important; /*摘要大小*/
+  }
+}
+
+/* --------------- 文章页面 --------------- */
+.post-page {
+  #article-container {
+    font-size: 1.3rem; /*正文字体大小*/
+    
+    h1 { font-size: 2.0rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.6rem; }
+    h4 { font-size: 1.4rem; }
+    h5 { font-size: 1.25rem; }
+    h6 { font-size: 1.15rem; }
+  }
+  
+  /* 代码块字体*/
+  .highlight-wrap {
+    font-size: 1.3rem;
+  }
+}
+
+/* --------------- 分类/标签页面 --------------- */
+.category-page, .tag-page {
+  .card-category-list, .card-tag-list {
+    font-size: 1.5rem; /* 分类/标签名称大小*/
+    
+    .category-list-count, .tag-list-count {
+      font-size: 0.9rem; /*计数字体大小*/
+    }
+  }
+}
+
+/* --------------- 侧边栏 --------------- */
+.aside-content {
+  font-size: 0.95rem; /*侧边栏字体大小*/
+  
+  .card-title {
+    font-size: 1.2rem; /*侧边栏标题大小*/
+  }
+}
+
+/* --------------- 页脚 --------------- */
+#footer-wrap {
+  font-size: 0.9rem;
+}
