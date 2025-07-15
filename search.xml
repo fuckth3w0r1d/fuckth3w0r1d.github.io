@@ -209,9 +209,9 @@
           
           <category> ROP </category>
           
-          <category> canary </category>
-          
           <category> ret2libc </category>
+          
+          <category> canary </category>
           
           <category> 伪随机数 </category>
           
