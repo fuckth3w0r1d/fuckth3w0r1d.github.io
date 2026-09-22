@@ -1,0 +1,475 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>西瓜书学习随记 | r3t2's blog</title><meta name="author" content="r3t2"><meta name="copyright" content="r3t2"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="西瓜书学习随记绪论NFL(No-Free-Lunch) 定理假设样本空间 $\mathcal{X}$ 和假设空间 $\mathcal{H}$ 都是离散的，令 $P(h \mid X, \Sigma_a)$ 代表算法 $\Sigma_a$ 基于训练数据 $X$ 产生假设 $h$ 的概率，再令 $f$ 代表我们希望学习的真实目标函数。$\Sigma_a$ 的“训练集外误差”，即 $\Sigma_a$">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西瓜书学习随记">
+<meta property="og:url" content="https://r3t2.top/2026/09/16/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E9%9A%8F%E8%AE%B0/index.html">
+<meta property="og:site_name" content="r3t2's blog">
+<meta property="og:description" content="西瓜书学习随记绪论NFL(No-Free-Lunch) 定理假设样本空间 $\mathcal{X}$ 和假设空间 $\mathcal{H}$ 都是离散的，令 $P(h \mid X, \Sigma_a)$ 代表算法 $\Sigma_a$ 基于训练数据 $X$ 产生假设 $h$ 的概率，再令 $f$ 代表我们希望学习的真实目标函数。$\Sigma_a$ 的“训练集外误差”，即 $\Sigma_a$">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://r3t2.top/img/saber_flower.jpg">
+<meta property="article:published_time" content="2026-09-16T09:17:17.000Z">
+<meta property="article:modified_time" content="2026-09-22T14:12:31.089Z">
+<meta property="article:author" content="r3t2">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://r3t2.top/img/saber_flower.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "西瓜书学习随记",
+  "url": "https://r3t2.top/2026/09/16/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E9%9A%8F%E8%AE%B0/",
+  "image": "https://r3t2.top/img/saber_flower.jpg",
+  "datePublished": "2026-09-16T09:17:17.000Z",
+  "dateModified": "2026-09-22T14:12:31.089Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "r3t2",
+      "url": "https://r3t2.top/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/machine.png"><link rel="canonical" href="https://r3t2.top/2026/09/16/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E9%9A%8F%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><meta><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":5,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '西瓜书学习随记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="google-site-verification" content="seDXYNJ0k96blec1SD9zGsGEj_TpRbvhFLQGjavGrr0"><meta name="msvalidate.01" content="D8D9382CFC5CBBBCC03DFF690E1C872F"><link rel="stylesheet" href="/css/search_style.css"><style>.category-list-count{display:none !important;}</style><link rel="stylesheet" href="/css/font_modify.css"><link rel="stylesheet" href="/css/background_modify.css"><link rel="stylesheet" href="/css/transpancy_modify.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/ghostrunner.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/Rick.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">54</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/saber_flower.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">r3t2's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">西瓜书学习随记</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">西瓜书学习随记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-09-16T09:17:17.000Z" title="发表于 2026-09-16 17:17:17">2026-09-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-22T14:12:31.089Z" title="更新于 2026-09-22 22:12:31">2026-09-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI/">AI</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/AI/ML/">ML</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">12.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>45分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url(/img/saber_flower.jpg);"></div><article class="container post-content" id="article-container"><h1 id="西瓜书学习随记"><a href="#西瓜书学习随记" class="headerlink" title="西瓜书学习随记"></a>西瓜书学习随记</h1><h2 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h2><h3 id="NFL-No-Free-Lunch-定理"><a href="#NFL-No-Free-Lunch-定理" class="headerlink" title="NFL(No-Free-Lunch) 定理"></a>NFL(No-Free-Lunch) 定理</h3><p>假设样本空间 $\mathcal{X}$ 和假设空间 $\mathcal{H}$ 都是离散的，令 $P(h \mid X, \Sigma_a)$ 代表算法 $\Sigma_a$ 基于训练数据 $X$ 产生假设 $h$ 的概率，再令 $f$ 代表我们希望学习的真实目标函数。$\Sigma_a$ 的“训练集外误差”，即 $\Sigma_a$ 在训练集之外的所有样本上的误差为</p>
+<p>$$<br>E_{ote}(\Sigma_a \mid X, f) = \sum_h \sum_{\vec{x} \in \mathcal{X}-X} P(\vec{x}) \mathbb{I}(h(\vec{x}) \neq f(\vec{x})) P(h \mid X, \Sigma_a)<br>$$<br>$\mathbb{I}(x)$ 是一个指示函数，意义是：若 $x$ 为真，则 $\mathbb{I}(x) = 1$，否则反之</p>
+<p>以上公式的含义很显然：对样本空间中不在训练集的样本($\vec{x} \in \mathcal{X} - X$)，先求出算法产生的所有假设与真实函数不符的概率期望；再用样本分布 $P(\vec{x})$ 加权有训练集外样本求和，得到这个算法的总误差期望。</p>
+<blockquote>
+<p>这个总误差期望与算法无关，推导如下</p>
+</blockquote>
+<p>考虑二分类问题，且真实目标函数可以是任何函数 $\mathcal{X} \mapsto {0,1}$，函数空间为 ${0,1}^{|\mathcal{X}|}$。对所有可能的 $f) 按均匀分布对误差求和：</p>
+<p>$$<br>\sum_f E_{ote}(\Sigma_a \mid X, f)<br>= \sum_f \sum_h \sum_{\vec{x} \in \mathcal{X}-X} P(x) \mathbb{I}(h(\vec{x}) \neq f(\vec{x})) P(h \mid X, \Sigma_a)<br>\<br>= \sum_{\vec{x} \in \mathcal{X}-X} P(\vec{x}) \sum_h P(h \mid X, \Sigma_a) \sum_f \mathbb{I}(h(\vec{x}) \neq f(\vec{x}))<br>$$</p>
+<p>由于 $f$ 是均匀分布的，对于任意固定的 $\vec{x}$ 和 $h(\vec{x})$，有一半的 $f$ 使得 $f(\vec{x})= h(\vec{x})$，另一半使得 $f(\vec{x}) \neq h(\vec{x})$。因此：</p>
+<p>$$<br>\sum_f \mathbb{I}(h(\vec{x}) \neq f(\vec{x})) = \frac{1}{2} \cdot 2^{|\mathcal{X}|}<br>$$</p>
+<p>代入得：</p>
+<p>$$<br>\sum_f E_{ote}(\Sigma_a \mid X, f)<br>= \sum_{\vec{x} \in \mathcal{X}-X} P(\vec{x}) \sum_h P(h \mid X, \Sigma_a) \cdot \frac{1}{2} \cdot 2^{|\mathcal{X}|}<br>= \frac{1}{2} \cdot 2^{|\mathcal{X}|} \sum_{\vec{x} \in \mathcal{X}-X} P(\vec{x}) \sum_h P(h \mid X, \Sigma_a)<br>$$</p>
+<p>利用概率归一化条件 $\sum_h P(h \mid X, \Sigma_a) = 1$，得：</p>
+<p>$$<br>\sum_f E_{ote}(\Sigma_a \mid X, f)<br>= \frac{1}{2} \cdot 2^{|\mathcal{X}|} \sum_{\vec{x} \in \mathcal{X}-X} P(\vec{x}) \cdot 1<br>= \frac{1}{2} \cdot 2^{|\mathcal{X}|} \sum_{\vec{x} \in \mathcal{X}-X} P(\vec{x})<br>$$</p>
+<p>最终结论：总误差与算法 $\Sigma_a$ 无关</p>
+<p>$$<br>\therefore \sum_f E_{ote}(\Sigma_a \mid X, f) = \frac{1}{2} \cdot 2^{|\mathcal{X}|} \sum_{\vec{x} \in \mathcal{X}-X} P(\vec{x})<br>$$</p>
+<blockquote>
+<p>这不意味着机器学习没有意义。因为NFL定理成立的前提是所有的问题同等重要、出现机会等同，然而实际上我们很多时候只关注某个具体问题，为某个具体问题找到一个最佳的解决方案，并不关心这个方案对其他问题的好坏。一个学习算法的好坏必须结合实际具体问题来谈</p>
+</blockquote>
+<h2 id="模型评估与选择"><a href="#模型评估与选择" class="headerlink" title="模型评估与选择"></a>模型评估与选择</h2><h3 id="数据集划分"><a href="#数据集划分" class="headerlink" title="数据集划分"></a>数据集划分</h3><p>要评估模型，自然需要将数据集划分为训练集和测试集，用测试集来评估</p>
+<ul>
+<li><p>留出法，直接将数据集 $D$ 划分为两个互斥的集合：训练集 $S$ 和 测试集 $T$ </p>
+</li>
+<li><p>交叉验证法就是将数据集化成 $k$ 个大小相似的互斥子集，每次用 $k-1$ 个子集作为训练集，另一个作为测试集。称为 $k$ 折交叉验证</p>
+</li>
+</ul>
+<p><img src="/images/image-20260916164601370.png" alt="image-20260916164601370"></p>
+<blockquote>
+<p>这里若取 $k = m$，$m$ 为数据集 $D$ 的样本数，则此时为交叉验证法的特例：留一法，优点是评估结果往往比较准确可置信，缺点是训练计算开销大 </p>
+</blockquote>
+<ul>
+<li>自助法就是有放回地随机抽取 $m$ 次，$m$ 为数据集 $D$ 的样本数。如此得到和 $D$ 等大的训练集 $S$。需要注意的是可以做一个简单的估计，样本在 $m$ 次采样中始终不被采到的概率是 $(1 - \frac{1}{m})^m$ , 取极限得到概率约为 $\frac{1}{e}$，越有占比 $0.368$ 的样本未出现在 $S$，这些样本恰作为测试集 $T$</li>
+</ul>
+<h3 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h3><p>回归任务最常用的性能度量是<strong>均方误差</strong>：对于数据分布 $\mathcal{D}$ 、学习器 $f$ 和概率密度函数 $p(\vec{x})$，把学习器预测结果 $f(\vec{x})$ 与真实标记 $\vec{y}$ 进行比较.<br>$$<br>E(f; \mathcal{D}) = \int_{\vec{x} \sim \mathcal{D}} (f(\vec{x}) - \vec{y})^2 p(\vec{x}) \mathrm{d}\vec{x}<br>$$<br>分类任务采用的性能度量如下：</p>
+<h4 id="错误率与精度"><a href="#错误率与精度" class="headerlink" title="错误率与精度"></a>错误率与精度</h4><p>对样例集 $D$（共 $m$ 个样本），错误率是分类错误的样本数占样本总数的比例，精度是分类正确的样本数占样本总数的比例，二者互补：</p>
+<p>$$<br>E(f; D) = \frac{1}{m}\sum_{i=1}^{m}\mathbb{I}\big(f(\vec{x}_i) \neq \vec{y}<em>i\big),<br>acc(f; D) = \frac{1}{m}\sum</em>{i=1}^{m}\mathbb{I}\big(f(\vec{x}_i) = \vec{y}_i\big) = 1 - E(f; D)<br>$$</p>
+<p>它们既适用于二分类也适用于多分类</p>
+<h4 id="查准率、查全率与-F1"><a href="#查准率、查全率与-F1" class="headerlink" title="查准率、查全率与 F1"></a>查准率、查全率与 F1</h4><p>对二分类问题，样例按真实类别与预测类别的组合分成四种情形，即“混淆矩阵”：</p>
+<table>
+<thead>
+<tr>
+<th>真实情况 / 预测结果</th>
+<th>正例</th>
+<th>反例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正例</td>
+<td>TP（真正例）</td>
+<td>FN（假反例）</td>
+</tr>
+<tr>
+<td>反例</td>
+<td>FP（假正例）</td>
+<td>TN（真反例）</td>
+</tr>
+</tbody></table>
+<p>查准率 $P$ 关心“挑出来的正例中有多少是真的”，查全率 $R$ 关心“真正的正例有多少被挑了出来”：</p>
+<p>$$<br>P = \frac{TP}{TP + FP}, \qquad R = \frac{TP}{TP + FN}<br>$$</p>
+<p>两者互相矛盾：多挑一些（放宽标准）查全率会上升，但混进来的错误会拉低查准率；只挑最有把握的则相反</p>
+<p>若把样例按“最可能是正例”到“最不可能是正例”排序，逐个划为正例并每次都算出一对 $(R, P)$，以 $R$ 为横轴、$P$ 为纵轴作图就得到 P-R 曲线。</p>
+<p><img src="/images/image-20260916182148550.png" alt="image-20260916182148550"></p>
+<p>一条曲线被另一条完全包住时后者更优；两条曲线交叉时无法一般性地判定优劣，只能比曲线下面积，或用“平衡点”BEP（$P = R$ 处的取值）作粗略判据。</p>
+<p>更常用的是 $F1$，它是查准率与查全率的调和平均，因而更重视两者中较小的那个：</p>
+<p>$$<br>F1 = \frac{2 \times P \times R}{P + R} = \frac{2 \times TP}{\text{样例总数} + TP - TN}<br>$$</p>
+<p>一般形式 $F_\beta$ 可以表达对二者的不同偏好，或者说调节惩罚力度，$\beta &gt; 1$ 时查全率影响更大（如逃犯信息检索），$\beta &lt; 1$ 时查准率影响更大（如商品推荐）：</p>
+<p>$$<br>F_\beta = \frac{(1 + \beta^2) \times P \times R}{(\beta^2 \times P) + R}<br>$$</p>
+<p>多次训练/测试、多个数据集，或多分类任务中每两两类别的组合，都会得到 $n$ 个混淆矩阵，此时有两种汇总方式：先在各混淆矩阵上分别算出 $(P_i, R_i)$ 再取平均，得到宏查准率、宏查全率与宏 $F1$；或者先把各混淆矩阵的 $TP, FP, TN, FN$ 分别取平均，再基于这些平均值算出微查准率、微查全率与微 $F1$</p>
+<h4 id="ROC-与-AUC"><a href="#ROC-与-AUC" class="headerlink" title="ROC 与 AUC"></a>ROC 与 AUC</h4><p>很多学习器输出的是实值或概率，与一个分类阈值比较后才给出类别；这样，分类过程就相当于在实值或者概率排序中以某个”截断点”(cut point)将样本分为两部分，前一部分判作正例，后一部分则判作反例</p>
+<p>排序本身的质量好坏，体现了综合考虑学习器在不同任务下的”期望泛化性能”的好坏，我们需要一个指标来评估它</p>
+<p>ROC 的纵轴是真正例率 $TPR = \frac{TP}{TP + FN}$（即查全率），横轴是假正例率 $FPR = \frac{FP}{TN + FP}$。</p>
+<p>绘制方法是：先把阈值设为最大，即所有样例都判为反例，在 $(0,0)$ 处标记一点；然后依次把每个样例划为正例，若当前样例是真正例则向上移动 $\frac{1}{m^+}$，若是假正例则向右移动 $\frac{1}{m^-}$（$m^+$、$m^-$ 分别为样本中的正例、反例数），最后用线段连接相邻点</p>
+<p><img src="/images/image-20260916182600891.png" alt="image-20260916182600891"></p>
+<p>比较曲线下面积：也就是 AUC 来判定 ROC 曲线的好坏，将其视为一个个小的梯形切片，可估算为：<br>$$<br>\mathrm{AUC} = \frac{1}{2}\sum_{i=1}^{m-1}(x_{i+1} - x_i)(y_i + y_{i+1})<br>$$<br>AUC 与排序误差有直接联系。给定 $m^+$ 个正例和 $m^-$ 个反例，排序“损失”定义为</p>
+<p>$$<br>\ell_{rank} = \frac{1}{m^+ m^-}\sum_{\vec{x}^+ \in D^+}\sum_{\vec{x}^- \in D^-}\left[\mathbb{I}\big(f(\vec{x}^+) &lt; f(\vec{x}^-)\big) + \frac{1}{2}\mathbb{I}\big(f(\vec{x}^+) = f(\vec{x}^-)\big)\right]<br>$$</p>
+<p>也就是逐对考察正、反例：正例的预测值小于反例记一个罚分，二者相等记半个罚分。$\ell_{rank}$ 恰是 ROC 曲线上方的面积，故有 $\mathrm{AUC} = 1 - \ell_{rank}$。</p>
+<h4 id="代价敏感错误率与代价曲线"><a href="#代价敏感错误率与代价曲线" class="headerlink" title="代价敏感错误率与代价曲线"></a>代价敏感错误率与代价曲线</h4><p>前面的度量都隐含地假设各类错误的代价相同，而现实中并非如此。我们需要给错误赋予非均等代价 $\mathrm{cost}<em>{ij}$，它表示把第 $i$ 类样本预测为第 $j$ 类的代价，一般 $cost</em>{ii} = 0$，而且重要的是代价之间的比值而非绝对值。此时我们不再是最小化错误次数，而是最小化总体代价。以第 0 类为正类、第 1 类为反类，代价敏感错误率为</p>
+<p>$$<br>E(f; D; \mathrm{cost}) = \frac{1}{m}\left(\sum_{\vec{x}_i \in D^+}\mathbb{I}\big(f(\vec{x}<em>i) \neq \vec{y}<em>i\big) \times \mathrm{cost}</em>{01} + \sum</em>{\vec{x}_i \in D^-}\mathbb{I}\big(f(\vec{x}_i) \neq \vec{y}<em>i\big) \times \mathrm{cost}</em>{10}\right)<br>$$</p>
+<p>在非均等代价下 ROC 曲线不能直接反映学习器的期望总体代价，代价曲线则可以</p>
+<p>代价曲线的横轴是取值为 $[0,1]$ 的正例概率代价<br>$$<br>P(+)<em>{cost} = \frac{p \times \mathrm{cost}</em>{01}}{p \times \mathrm{cost}<em>{01} + (1 - p) \times \mathrm{cost}</em>{10}}<br>$$</p>
+<p>纵轴是取值为 $[0,1]$ 的归一化代价</p>
+<p>$$<br>\mathrm{cost}<em>{norm} = \frac{实际期望代价}{最坏期望代价} = \frac{FNR \times p \times \mathrm{cost}</em>{01} + FPR \times (1 - p) \times \mathrm{cost}<em>{10}}{p \times \mathrm{cost}</em>{01} + (1 - p) \times \mathrm{cost}_{10}}<br>$$</p>
+<p>其中 $p$ 是样例为正例的概率，$FNR = 1 - TPR$ 是假反例率，$FPR$ 是假正例率。ROC 曲线上的每一点 $(TPR, FPR)$ 都对应代价平面上一条从 $(0, FPR)$ 到 $(1, FNR)$ 的线段，每条线段下的面积就是该条件下的期望总体代价；取所有线段的下界，围成的面积即为所有条件下学习器的期望总体代价</p>
+<p><img src="/images/image-20260916184255846.png" alt="image-20260916184255846"></p>
+<h3 id="比较检验"><a href="#比较检验" class="headerlink" title="比较检验"></a>比较检验</h3><p>有了评估方法和性能度量，也不能直接把结果拿来比大小：我们想比较的是泛化性能，实际拿到的却是某个测试集上的测试性能；测试集本身的选择会带来差异；很多算法还带有随机性，相同参数在同一测试集上多次运行结果也不相同</p>
+<p>统计假设检验提供了判断依据——若在测试集上观察到学习器 A 比 B 好，A 的泛化性能是否在统计意义上更优，以及这个结论的把握有多大（本小节以错误率为性能度量，记为 $E$）</p>
+<p>基本是概率论学习过的内容并且有些繁琐，姑且先照搬：</p>
+<ul>
+<li><strong>二项检验</strong>：泛化错误率为 $\epsilon$ 的学习器在 $m$ 个测试样本上恰有 $\vec{E} \times m$ 个被误分类的概率为 $P(\vec{E}; \epsilon) = \binom{m}{\vec{E} \times m}\epsilon^{\vec{E} \times m}(1 - \epsilon)^{m - \vec{E} \times m}$，它遵从二项分布，并在 $\epsilon = \vec{E}$ 时取最大值。对假设 “$\epsilon \le \epsilon_0$”，可由 $\sum_{i = \bar{\epsilon}m + 1}^{m}\binom{m}{i}\epsilon_0^i(1 - \epsilon_0)^{m - i} &lt; \alpha$ 解出 $1 - \alpha$ 置信度内所能观测到的最大错误率 $\bar{\epsilon}$；若测试错误率 $\vec{E} &lt; \bar{\epsilon}$，则在该显著度下不能拒绝该假设</li>
+<li><strong>t 检验</strong>：多次留出法或交叉验证会得到 $k$ 个测试错误率 $\vec{E}_1, \dots, \vec{E}_k$，可看作泛化错误率 $\epsilon_0$ 的独立采样，其均值 $\mu$ 与方差 $\sigma^2$ 如常计算，则变量 $\tau_t = \frac{\sqrt{k}(\mu - \epsilon_0)}{\sigma}$ 服从自由度为 $k - 1$ 的 t 分布。给定显著度 $\alpha$，若 $|\mu - \epsilon_0|$ 落在临界值范围内，则不能拒绝 “$\mu = \epsilon_0$”，即可用 $1 - \alpha$ 的置信度认为泛化错误率就是 $\epsilon_0$</li>
+<li><strong>交叉验证 t 检验</strong>：比较两个学习器 A、B 时，它们在同一个第 $i$ 折训练/测试集上的结果之差为 $\Delta_i = E_i^A - E_i^B$；若两者性能相同，这些差值的均值应为零，于是可用 $\tau_t = \left|\frac{\sqrt{k}\mu}{\sigma}\right|$（$\mu$、$\sigma^2$ 为差值的均值与方差）与临界值 $t_{\alpha/2, k-1}$ 比较。需要注意的是，样本有限时不同轮次的训练集会有重叠，测试错误率并不独立，这会高估“假设成立”的概率；为此可采用 5×2 交叉验证（做 5 次 2 折交叉验证，每次之前重新打乱数据，使 5 次划分互不重复），取第一次 2 折两个差值的均值 $\mu = \frac{1}{2}(\Delta_1^1 + \Delta_1^2)$，同时对每次 2 折的结果都算出方差 $\sigma_i^2$，则变量 $\tau_t = \frac{\mu}{\sqrt{0.2\sum_{i=1}^{5}\sigma_i^2}}$ 服从自由度为的 t分布</li>
+<li><strong>McNemar 检验</strong>：用留出法还能得到两个学习器分类结果的差别，即列联表（两者都正确 $e_{00}$、A 对 B 错 $e_{01}$、A 错 B 对 $e_{10}$、都错 $e_{11}$）。若两学习器性能相同，应有 $e_{01} = e_{10}$，此时变量 $\tau_{\chi^2} = \frac{(|e_{01} - e_{10}| - 1)^2}{e_{01} + e_{10}}$ 服从自由度为 1 的 $\chi^2$ 分布（即标准正态分布变量的平方）；它小于临界值则不能拒绝“性能相同”</li>
+<li><strong>Friedman 检验与 Nemenyi 后续检验</strong>：要在一组数据集上比较多个算法时，先在各数据集上按测试性能由好到坏排名、赋予序值（性能相同则平分序值），设第 $i$ 个算法在 $N$ 个数据集上的平均序值为 $r_i$（共比较 $k$ 个算法），则 $r_i$ 的均值与方差分别为 $\frac{k+1}{2}$ 与 $\frac{k^2-1}{12}$；在 $k$、$N$ 都较大时，变量 $\tau_{\chi^2} = \frac{12N}{k(k+1)}\left(\sum_{i=1}^{k}r_i^2 - \frac{k(k+1)^2}{4}\right)$ 服从自由度为 $k - 1$ 的 $\chi^2$ 分布。原始 Friedman 检验过于保守，通常改用 $\tau_F = \frac{(N-1)\tau_{\chi^2}}{N(k-1) - \tau_{\chi^2}}$，它服从自由度为 $k-1$ 和 $(k-1)(N-1)$ 的 F 分布。若“所有算法性能相同”被拒绝，则用 Nemenyi 后续检验判断两两之间是否有显著差别：平均序值之差超过临界值域 $CD = q_\alpha\sqrt{\frac{k(k+1)}{6N}}$ 的两个算法才算有显著差别</li>
+</ul>
+<h3 id="偏差与方差"><a href="#偏差与方差" class="headerlink" title="偏差与方差"></a>偏差与方差</h3><p>偏差-方差分解回答的是学习算法“为什么”具有这样的泛化性能，做法是把期望泛化误差拆开。</p>
+<p>对测试样本 $\vec{x}$，令 $\vec{y}_D$ 为 $\vec{x}$ 在数据集中的标记（可能存在标注错误等等误差），$\vec{y}$ 为 $\vec{x}$ 的真实标记，$f(\vec{x}; D)$ 为训练集 $D$ 上学得的模型在 $\vec{x}$ 上的预测输出，以回归任务为例：<br>$$<br>\bar{f}(\vec{x}) = \mathbb{E}_D\big[f(\vec{x}; D)\big]<br>$$</p>
+<p>$$<br>var(\vec{x}) = \mathbb{E}_D\Big[\big(f(\vec{x}; D) - \bar{f}(\vec{x})\big)^2\Big], \qquad<br>\varepsilon^2 = \mathbb{E}_D\big[(\vec{y}_D - \vec{y})^2\big], \qquad<br>bias^2(\vec{x}) = \big(\bar{f}(\vec{x}) - \vec{y}\big)^2<br>$$</p>
+<p>三者的含义分别是：</p>
+<ul>
+<li>方差度量同样大小的训练集的变动所导致的性能变化，即数据扰动造成的影响；</li>
+<li>噪声表达当前任务上任何学习算法所能达到的期望泛化误差下界，即学习问题本身的难度；</li>
+<li>偏差度量期望预测与真实结果的偏离程度，即学习算法本身的拟合能力</li>
+</ul>
+<p>假定噪声期望为零，即 $\mathbb{E}_D[\vec{y}_D - \vec{y}] = 0$，把期望泛化误差展开并合并，交叉项为零，最终得到</p>
+<p>$$<br>E(f; D) = \mathbb{E}_D\big[(f(\vec{x}; D) - \vec{y})^2\big] = bias^2(\vec{x}) + var(\vec{x}) + \varepsilon^2<br>$$</p>
+<p>即<strong>泛化误差可分解为偏差、方差与噪声之和</strong>，泛化性能由学习算法的能力、数据的充分性以及学习任务本身的难度共同决定。给定任务，要取得好的泛化性能，就需使偏差较小（能充分拟合数据）且方差较小（数据扰动的影响小）</p>
+<blockquote>
+<p>偏差与方差通常是冲突的，这称为偏差-方差窘境：训练不足时拟合能力不够，训练数据的扰动不足以使学习器产生显著变化，偏差主导泛化错误率；随着训练程度加深，拟合能力逐渐增强，数据扰动渐渐被学到，方差开始主导；训练程度充足后，训练数据自身的、非全局的特性也会被学进去，于是发生过拟合。这也从另一个角度解释了欠拟合与过拟合</p>
+</blockquote>
+<h2 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h2><h3 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h3><p>线性模型试图学得一个通过属性的线性组合来进行预测的函数。给定由 $d$ 个属性描述的示例 $\vec{x} = (x_1; x_2; \dots; x_d)$，其中 $x_i$ 是 $\vec{x}$ 在第 $i$ 个属性上的取值：</p>
+<p>$$<br>f(\vec{x}) = w_1x_1 + w_2x_2 + \dots + w_dx_d + b = \vec{w}^T\vec{x} + b<br>$$</p>
+<p>其中 $\vec{w} = (w_1; w_2; \dots; w_d)$，$\vec{w}$ 与 $b$ 学得后模型就确定了。线性模型形式简单、易于建模，$\vec{w}$ 直观表达了各属性在预测中的重要性，因此有很好的可解释性；许多功能更强的非线性模型都是在线性模型的基础上通过引入层级结构或高维映射得到的。</p>
+<h3 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h3><p>线性回归要学得一个线性模型以尽可能准确地预测实值输出标记。先看输入属性只有一个的情形，数据集 $D = {(x_i, y_i)}_{i=1}^{m}$（此时 $x_i$ 是实数）。确定 $w$ 和 $b$ 的关键是衡量预测值 $f(x_i)$ 与真实标记 $y_i$ 的差别，而均方误差是回归任务最常用的性能度量，于是令其最小化：</p>
+<p>$$<br>(w^<em>, b^</em>) = \arg\min_{(w, b)} \sum_{i=1}^{m}(y_i - wx_i - b)^2<br>$$</p>
+<p>均方误差有明确的几何意义，它对应欧氏距离，因此这种基于均方误差最小化来求解模型的方法称为“最小二乘法”。</p>
+<p>上式关于 $w$ 和 $b$ 是凸函数，分别对二者求导并令其为零，可得闭式解<br>$$<br>w = \frac{\sum_{i=1}^{m}y_i(x_i - \bar{x})}{\sum_{i=1}^{m}x_i^2 - \frac{1}{m}\left(\sum_{i=1}^{m}x_i\right)^2}, \qquad b = \bar{y} - w\bar{x}<br>$$</p>
+<p>其中 $\bar{x} = \frac{1}{m}\sum_i x_i$ 是 $x$ 的均值。分母恰是 $\sum_i (x_i - \bar{x})^2$，分子恰是 $\sum_i (x_i - \bar{x})(y_i - \bar{y})$，这说明 $w$ 只由属性的离差与标记的离差决定，是二者协方差与属性方差之比</p>
+<blockquote>
+<p>更一般的情形是样本由 $d$ 个属性描述，即“多元线性回归”</p>
+</blockquote>
+<p>也就是<br>$$<br>f(\vec{x_i}) = \vec{w}^T\vec{x_i} + b<br>$$<br>如上， $m$ 个这样的方程。</p>
+<p>为便于讨论，把 $w$ 与 $b$ 吸收入向量 $\tilde{\vec{w}} = (\vec{w}; b)$，并把数据集表示成 $m \times (d+1)$ 的矩阵 $X$，每行对应一个示例，该行前 $d$ 个元素是属性值、最后一个元素恒为 $1$；把标记写成向量 $\vec{y} = (y_1; y_2; \dots; y_m)$（$y_i$ 也就是 $f(\vec{x_i})$），如下图<br><img src="/images/image-20260917161746538.png" alt="image-20260917161746538"></p>
+<p>再把标记也写成向量形式 $\vec{y}=(y_1; y_2;… ;y_m)$，如下<br>$$<br>\tilde{\vec{w}}^* = \arg\min_{\tilde{\vec{w}}} (\vec{y} - X\tilde{\vec{w}})^T(\vec{y} - X\tilde{\vec{w}})<br>$$</p>
+<p>记 $E_{\tilde{\vec{w}}} = (\vec{y} - X\tilde{\vec{w}})^T(\vec{y} - X\tilde{\vec{w}})$，对 $\tilde{\vec{w}}$ 求导得 $\frac{\partial E_{\tilde{\vec{w}}}}{\partial \tilde{\vec{w}}} = 2X^T(X\tilde{\vec{w}} - \vec{y})$，令其为零即得</p>
+<p>$$<br>\tilde{\vec{w}}^* = (X^TX)^{-1}X^T\vec{y} \quad (\text{当 } X^TX \text{ 为满秩矩阵或正定矩阵时})<br>$$</p>
+<p>现实任务中 $X^TX$ 往往不是满秩矩阵，例如变量数目超过样例数时 $X$ 的列数多于行数，此时可解出多个 $\tilde{\vec{w}}$，它们都能使均方误差最小；选择哪一个由学习算法的归纳偏好决定，常见做法是引入正则化项</p>
+<p>线性模型还有丰富的变化：若希望模型预测值逼近 $y$ 的衍生物，例如认为输出标记在指数尺度上变化，可令 $\ln y = \vec{w}^T\vec{x} + b$，这称为“对数线性回归”，它形式上仍是线性回归，实质上是在求输入空间到输出空间的非线性映射（用 $e^{\vec{w}^T\vec{x}+b}$ 逼近 $y$）；</p>
+<p>更一般地，对单调可微函数 $g(\cdot)$，令 $y = g^{-1}(\vec{w}^T\vec{x} + b)$，就得到“广义线性模型”，$g$ 称为“联系函数”，显然对数线性回归是 $g(\cdot) = \ln(\cdot)$ 时的特例</p>
+<h3 id="对数几率回归"><a href="#对数几率回归" class="headerlink" title="对数几率回归"></a>对数几率回归</h3><p>要做分类任务，只需在广义线性模型中找一个单调可微函数，把分类任务的真实标记 $y$ 与线性回归产生的预测值 $z = \vec{w}^T\vec{x} + b$ 联系起来。用单调可微的“对数几率函数”：<br>$$<br>y = \frac{1}{1 + e^{-z}} = \frac{1}{1 + e^{-(\vec{w}^T\vec{x} + b)}}<br>$$</p>
+<p>对数几率函数是一种 Sigmoid 函数，它把 $z$ 映射到 $(0, 1)$ 作为正类概率，且在 $z = 0$ 附近变化很陡。把上式变形可得</p>
+<p>$$<br>\ln\frac{y}{1 - y} = \vec{w}^T\vec{x} + b<br>$$</p>
+<p> $y$ 为样本 $\vec{x}$ 为正例的可能性，则 $1 - y$ 是其为反例的可能性，二者之比 $\frac{y}{1-y}$ 称为“几率”，反映了 $\vec{x}$ 作为正例的相对可能性，对几率取对数即为“对数几率”。所以上式是在用线性回归的预测结果去逼近真实标记的对数几率，对应的模型称为“对数几率回归”（名字里虽有“回归”，实际是一种分类学习方法） </p>
+<p>它的好处是：直接对分类可能性建模，无需事先假设数据分布；不是只给出类别，而是给出近似概率预测；对率函数是任意阶可导的凸函数，许多数值优化算法都可直接用来求最优解。</p>
+<p>下面看 $\vec{w}$ 和 $b$ 怎么确定。把 $y$ 视为类后验概率估计 $p(y=1 \mid \vec{x})$，则可以解出</p>
+<p>$$<br>p(y=1 \mid \vec{x}) = \frac{e^{\vec{w}^T\vec{x}+b}}{1 + e^{\vec{w}^T\vec{x}+b}}, \qquad p(y=0 \mid \vec{x}) = \frac{1}{1 + e^{\vec{w}^T\vec{x}+b}}<br>$$</p>
+<p>用概率论中学过的极大似然法估计参数</p>
+<p><img src="/images/image-20260917164811775.png" alt="image-20260917164811775"></p>
+<p>令上式子概率最大也就是让每个样本 $\vec{x_i}$ 属于其真实标记 $y_i$ 的概率越大越好。取对数即：<br>$$<br>\ell(\vec{w}, b) = \sum_{i=1}^{m}\ln p(y_i \mid \vec{x}_i; \vec{w}, b)<br>$$<br>令 $\vec{\beta} = (\vec{w}; b)$、$\tilde{\vec{x}}_i = (\vec{x}_i; 1)$（与多元线性回归中把 $b$ 吸入向量的做法一样），则 $\vec{w}^T\vec{x}_i + b$ 可简写为 $\vec{\beta}^T\tilde{\vec{x}}_i$，并记 $p_1 = p(y=1 \mid \tilde{\vec{x}}; \vec{\beta})$、$p_0 = 1 - p_1$，则似然项可写成<br>$$<br>p(y_i \mid \tilde{\vec{x}}_i; \vec{\beta}) = y_i,\ln [p_1(\vec{x_i};\beta)] + (1 - y_i),\ln p_0[(\vec{x_i};\beta)]<br>$$<br>把 $p_1, p_0$ 的表达式 $p_1(\vec{x_i};\beta) = \frac{e^{\vec{\beta}^T\tilde{\vec{x}}_i}}{1+e^{\vec{\beta}^T\tilde{\vec{x}}_i}}, p_0(\vec{x_i};\beta) = \frac{1}{1+e^{\vec{\beta}^T\tilde{\vec{x}}<em>i}}$ 代入<br>$$<br>\ell(\vec{w}; b) = -\sum</em>{i=1}^{m}\left(-y_i\vec{\beta}^T\tilde{\vec{x}}_i + \ln\left(1 + e^{\vec{\beta}^T\tilde{\vec{x}}_i}\right)\right)<br>$$</p>
+<p>则求其最大似然也就是最小化：<br>$$<br>\ell(\vec{\beta}) = \sum_{i=1}^{m}\left(-y_i\vec{\beta}^T\tilde{\vec{x}}_i + \ln\left(1 + e^{\vec{\beta}^T\tilde{\vec{x}}_i}\right)\right)<br>$$<br>这里因为原书符号有点问题，这里$\ell(\vec{\beta})$ 和 $\ell(\vec{w}; b)$ 是一个东西，但为了下面公式表述方便还是用 $\ell(\vec{\beta})$ 表示 $-\ell(\vec{w}; b)$ </p>
+<p>它是关于 $\vec{\beta}$ 的高阶可导连续凸函数，用梯度下降法、牛顿法等都能求得最优解。以牛顿法为例，第 $t+1$ 轮迭代的更新公式为<br>$$<br>\vec{\beta}^{t+1} = \vec{\beta}^{t} - \left(\frac{\partial^2 \ell(\vec{\beta})}{\partial \vec{\beta},\partial \vec{\beta}^T}\right)^{-1}\frac{\partial \ell(\vec{\beta})}{\partial \vec{\beta}}<br>$$</p>
+<p>其中一阶导与二阶导分别是</p>
+<p>$$<br>\frac{\partial \ell(\vec{\beta})}{\partial \vec{\beta}} = -\sum_{i=1}^{m}\tilde{\vec{x}}_i\left(y_i - p_1(\tilde{\vec{x}}<em>i; \vec{\beta})\right), \qquad<br>\frac{\partial^2 \ell(\vec{\beta})}{\partial \vec{\beta},\partial \vec{\beta}^T} = \sum</em>{i=1}^{m}\tilde{\vec{x}}_i\tilde{\vec{x}}_i^T, p_1(\tilde{\vec{x}}_i; \vec{\beta})\left(1 - p_1(\tilde{\vec{x}}_i; \vec{\beta})\right)<br>$$</p>
+<p>这里大致含义就是不断往梯度下降的方向走，梯度本身变化的快则走得慢，梯度变化的慢则走得快一些</p>
+<h3 id="线性判别分析"><a href="#线性判别分析" class="headerlink" title="线性判别分析"></a>线性判别分析</h3><p>线性判别分析（LDA，二分类时亦称 Fisher 判别分析）的思想很朴素：<strong>把样例投影到一条直线上，使同类样例的投影点尽可能接近、异类样例的投影点尽可能远离；对新样本，也投影到这条直线上，再根据投影点的位置确定类别</strong></p>
+<p><img src="/images/image-20260917172920661.png" alt="image-20260917172920661"></p>
+<p>给定数据集 $D = {(\vec{x}<em>i, y_i)}</em>{i=1}^{m}$，$y_i \in {0,1}$，令 $X_i$、$\vec{\mu}_i$、$\Sigma_i$ 分别表示第 $i$ 类示例的集合、均值向量与协方差矩阵</p>
+<blockquote>
+<p>对随机变量 (X,Y)：<br>$$<br>\operatorname{Cov}(X,Y)=\mathbb{E}\big[(X-\mathbb{E}X)(Y-\mathbb{E}Y)\big]<br>$$<br>对随机向量 (\vec{x}\in\mathbb{R}^d)，均值 (\boldsymbol{\mu}=\mathbb{E}[\vec{x}])，协方差矩阵：<br>$$<br>\Sigma=\mathbb{E}\big[(\vec{x}-\boldsymbol{\mu})(\vec{x}-\boldsymbol{\mu})^\top\big]<br>$$</p>
+</blockquote>
+<p><img src="/images/image-20260917175007075.png" alt="image-20260917175007075"></p>
+<p>若把数据投影到直线 $\vec{w}$ 上，则两类中心在直线上的投影分别是 $\vec{w}^T\vec{\mu}_0$ 与 $\vec{w}^T\vec{\mu}_1$，两类样本的投影协方差分别是 $\vec{w}^T\Sigma_0\vec{w}$ 与 $\vec{w}^T\Sigma_1\vec{w}$（直线是一维空间，所以这些都是实数）</p>
+<blockquote>
+<p>设投影方向为 (\vec{w})，投影标量：<br>$$<br>y=\vec{w}^\top\vec{x}<br>$$<br>均值：<br>$$<br>\mathbb{E}[y]=\vec{w}^\top\boldsymbol{\mu}<br>$$<br>方差：<br>$$<br>\begin{aligned}<br>\operatorname{Var}(y)<br>&amp;=\mathbb{E}\big[(y-\mathbb{E}[y])^2\big] \<br>&amp;=\mathbb{E}\big[(\vec{w}^\top(\vec{x}-\boldsymbol{\mu}))^2\big] \<br>&amp;=\mathbb{E}\big[\vec{w}^\top(\vec{x}-\boldsymbol{\mu})(\vec{x}-\boldsymbol{\mu})^\top\vec{w}\big] \<br>&amp;=\vec{w}^\top \mathbb{E}\big[(\vec{x}-\boldsymbol{\mu})(\vec{x}-\boldsymbol{\mu})^\top\big]\vec{w} \<br>\end{aligned}<br>$$<br>协方差矩阵定义就是：$\Sigma=\mathbb{E}\big[(\vec{x}-\boldsymbol{\mu})(\vec{x}-\boldsymbol{\mu})^\top\big]$ 因此投影后直线上一类样本的协方差为：<br>$$<br>\boxed{\operatorname{Var}(y)=\vec{w}^\top\Sigma\vec{w}}<br>$$</p>
+</blockquote>
+<ul>
+<li>“同类尽可能近”就是让 $\vec{w}^T\Sigma_0\vec{w} + \vec{w}^T\Sigma_1\vec{w}$ 尽量小</li>
+<li>“异类尽可能远”就是让 $|\vec{w}^T\vec{\mu}_0 - \vec{w}^T\vec{\mu}_1|_2^2$ 尽量大</li>
+</ul>
+<p>二者同时考虑，即得最大化的目标：<br>$$<br>J = \frac{|\vec{w}^T\vec{\mu}_0 - \vec{w}^T\vec{\mu}_1|_2^2}{\vec{w}^T\Sigma_0\vec{w} + \vec{w}^T\Sigma_1\vec{w}} = \frac{\vec{w}^T(\vec{\mu}_0 - \vec{\mu}_1)(\vec{\mu}_0 - \vec{\mu}_1)^T\vec{w}}{\vec{w}^T(\Sigma_0 + \Sigma_1)\vec{w}} = \frac{\vec{w}^TS_b\vec{w}}{\vec{w}^TS_w\vec{w}}<br>$$</p>
+<p>其中类内散度矩阵 $S_w = \Sigma_0 + \Sigma_1 = \sum_{\vec{x} \in X_0}(\vec{x} - \vec{\mu}_0)(\vec{x} - \vec{\mu}<em>0)^T + \sum</em>{\vec{x} \in X_1}(\vec{x} - \vec{\mu}_1)(\vec{x} - \vec{\mu}_1)^T$，类间散度矩阵 $S_b = (\vec{\mu}_0 - \vec{\mu}_1)(\vec{\mu}_0 - \vec{\mu}_1)^T$。$J$ 就是 $S_b$ 与 $S_w$ 的广义瑞利商</p>
+<p>注意到 $J$ 的分子分母都是关于 $\vec{w}$ 的二次型</p>
+<blockquote>
+<p>矩阵的二次型 $\vec{x}^{T}A\vec{x}$ 就是向量 $\vec{x}$ 的各分量经过矩阵 $A$ 加权后的二次齐次多项式，它衡量了 $A$ 在方向 $\vec{x}$ 上的“大小”或“能量”。在协方差中，它正好表示数据沿该方向的方差</p>
+</blockquote>
+<p>它的解与 $\vec{w}$ 的长度无关、只与方向有关，因此不妨令 $\vec{w}^TS_w\vec{w} = 1$，于是最大化 $J$ 等价于<br>$$<br>\min_{\vec{w}} -\vec{w}^TS_b\vec{w}，s.t.\space\vec{w}^TS_w\vec{w} = 1<br>$$<br>由拉格朗日乘子法可得，求<br>$$<br>\min(-\vec{w}^TS_b\vec{w} + \lambda(\vec{w}^TS_w\vec{w}-1))<br>$$<br>即<br>$$<br>\frac{\partial[-\vec{w}^TS_b\vec{w} + \lambda(\vec{w}^TS_w\vec{w}-1)]}{\partial\vec{w}} = S_{b}\vec{w} - \lambda S_{w}\vec{w} = 0<br>$$<br>得到 $S_b\vec{w} = \lambda S_w\vec{w}$，其中 $\lambda$ 是拉格朗日乘子。又因 $S_b\vec{w} = (\vec{\mu}_0 - \vec{\mu}_1)(\vec{\mu}_0 - \vec{\mu}_1)^T\vec{w}$，而 $(\vec{\mu}_0 - \vec{\mu}_1)^T\vec{w}$ 是实数，所以 $S_b\vec{w}$ 的方向恒为 $\vec{\mu}_0 - \vec{\mu}_1$，不妨令 $S_b\vec{w} = \lambda(\vec{\mu}_0 - \vec{\mu}_1)$，代入上式即 得<br>$$<br>\vec{w} = S_w^{-1}(\vec{\mu}_0 - \vec{\mu}_1)<br>$$</p>
+<p>对 $S_{w}$ 实践上可能很困难，所以通常对 $S_w$ 做奇异值分解 $S_w = U\Sigma V^T$，再由 $S_w^{-1} = V\Sigma^{-1}U^T$ 得到 $S_w^{-1}$</p>
+<p>值得一提的是，从贝叶斯决策理论的角度可以证明：当两类数据同先验、满足高斯分布且协方差相等时，LDA 可达到最优分类</p>
+<blockquote>
+<p>LDA 也可推广到多分类。假定有 $N$ 个类，第 $i$ 类示例数为 $m_i$，定义全局散度矩阵</p>
+<p>$$<br>S_t = S_b + S_w = \sum_{i=1}^{m}(\vec{x}_i - \vec{\mu})(\vec{x}_i - \vec{\mu})^T<br>$$</p>
+<p>其中 $\vec{\mu}$ 是所有示例的均值向量；把类内散度矩阵重定义为各类散度矩阵之和 $S_w = \sum_{i=1}^{N}S_{w_i}$，$S_{w_i} = \sum_{\vec{x} \in X_i}(\vec{x} - \vec{\mu}_i)(\vec{x} - \vec{\mu}<em>i)^T$，于是 $S_b = S_t - S_w = \sum</em>{i=1}^{N}m_i(\vec{\mu}_i - \vec{\mu})(\vec{\mu}_i - \vec{\mu})^T$。常见的优化目标是</p>
+<p>$$<br>\max_{W}\frac{tr(W^TS_bW)}{tr(W^TS_wW)}<br>$$</p>
+<p>其中 $W \in \mathbb{R}^{d \times (N-1)}$，$tr(\cdot)$ 表示矩阵的迹；它可通过广义特征值问题 $S_bW = \lambda S_wW$ 求解，$W$ 的闭式解是 $S_w^{-1}S_b$ 的 $N-1$ 个最大广义特征值所对应的特征向量组成的矩阵。把 $W$ 视为投影矩阵，多分类 LDA 就把样本投影到 $N-1$ 维空间（通常远小于原属性数），且投影过程中用到了类别信息，因此 LDA 也常被视为一种经典的监督降维技术</p>
+</blockquote>
+<h3 id="多分类学习"><a href="#多分类学习" class="headerlink" title="多分类学习"></a>多分类学习</h3><p>现实中常有多分类任务，其基本思路是“拆解法”：把多分类任务拆为若干个二分类任务，为每个二分类任务训练一个分类器，测试时再对这些分类器的预测结果进行集成。实践中这种做法可能比较少见到，这里就简单介绍一下拆分策略：</p>
+<ul>
+<li>“一对一”（OvO）：把 $N$ 个类别两两配对，产生 $N(N-1)/2$ 个二分类任务，例如为区分类别 $C_i$ 与 $C_j$ 而训练的分类器把 $C_i$ 类样例作为正例、$C_j$ 类样例作为反例。测试时新样本同时提交给所有分类器，得到 $N(N-1)/2$ 个结果，最终由投票产生——被预测得最多的类别即为结果</li>
+<li>“一对其余”（OvR）：每次把一个类的样例作为正例、所有其他类的样例作为反例，共训练 $N$ 个分类器。测试时若仅有一个分类器预测为正类，则该类的标记即为结果；若有多个分类器预测为正类，则通常取预测置信度最大的类别</li>
+</ul>
+<p><img src="/images/image-20260920105617709.png" alt="image-20260920105617709"></p>
+<ul>
+<li>“多对多”（MvM）：每次将若干个类作为正类、若干个其他类作为反类，OvO 与 OvR 都是它的特例。MvM 通过<strong>编码矩阵</strong>让每个类别对应一个二进制码，每个二分类器负责区分码位上不同的类别组合。预测时，用所有二分类器的输出组成一个码，再与各类别的码比较，距离最小的类别即为预测结果</li>
+</ul>
+<p><img src="/images/image-20260920110650968.png" alt="image-20260920110650968"></p>
+<p>如上图是最常见的二元码和三元码编码方式，前者将每个类别分别指定为正类和反类，后者在正、反类之外，还可指 定”停用类；</p>
+<p>测试示例经过所有二分类器预测后，得到一个编码向量 $\vec{y}$。每个类别 $C_i$ 也有一个预定义的编码向量 $\vec{c_i}$；分别计算 $\vec{y}$ 与各个 $\vec{c_i}$ 间的海明距离和欧式距离</p>
+<p><img src="/images/image-20260920111442660.png" alt="image-20260920111442660"></p>
+<p><strong>距离最小的类别</strong>即为预测结果</p>
+<p>OvR 只需训练 $N$ 个分类器，OvO 需训练 $N(N-1)/2$ 个，因此 OvO 的存储开销与测试时间开销通常更大；但 OvR 的每个分类器都用全部训练样例，OvO 的每个分类器只用两个类的样例，所以类别很多时 OvO 的训练时间开销通常更小。预测性能则取决于具体的数据分布，多数情形下两者差不多</p>
+<h3 id="类别不平衡问题"><a href="#类别不平衡问题" class="headerlink" title="类别不平衡问题"></a>类别不平衡问题</h3><p>前面的分类方法都有一个共同的基本假设：不同类别的训练样例数目相当。若差别很大，学习过程就会受困扰——例如有 998 个反例、2 个正例，学习器只要永远预测反例就能达到 99.8% 的精度，但它预测不出任何正例，毫无价值。<strong>这种不同类别训练样例数目差别很大的情况称为“类别不平衡”</strong></p>
+<p>从线性分类器看最容易理解：用 $y = \vec{w}^T\vec{x} + b$ 对新样本分类（这里的 $y$ 指对率回归输出的预测值），实际上是在拿预测值 $y$ 与一个阈值比较（通常 $y &gt; 0.5$ 判为正例），而 $y$ 表达了正例的可能性，$\frac{y}{1-y}$ 则是正例与反例可能性之比，阈值取 $0.5$ 恰好意味着分类器认为正、反例可能性相同，即决策规则为</p>
+<p>$$<br>\text{若 } \frac{y}{1-y} &gt; 1 \text{ 则预测为正例}<br>$$</p>
+<p>然而训练集中正、反例数目不同时，正例数 $m^+$ 与反例数 $m^-$ 之比才是观测几率；若假设训练集是真实样本总体的无偏采样，观测几率就代表了真实几率，于是只要预测几率高于观测几率就应判为正例：</p>
+<p>$$<br>\text{若 } \frac{y}{1-y} &gt; \frac{m^+}{m^-} \text{ 则预测为正例}<br>$$</p>
+<p>只需令</p>
+<p>$$<br>\frac{y’}{1-y’} = \frac{y}{1-y} \times \frac{m^-}{m^+}<br>$$</p>
+<p>这样调整一下决策的阈值；这就是类别不平衡学习的基本策略“再缩放”</p>
+<p>但是“训练集是无偏采样”这个假设往往并不成立。现有技术大体有三类做法</p>
+<ul>
+<li><strong>欠采样</strong>，直接去掉一些反例使正、反例数目接近后再学习，其时间开销通常远小于过采样（训练集变小了），但随机丢弃反例可能丢失重要信息，代表性算法 EasyEnsemble 利用集成学习机制把反例划分为若干集合供不同学习器使用，从而在全局上不丢失信息；</li>
+<li><strong>过采样</strong>，增加一些正例使数目接近，注意不能简单重复采样否则会招致严重过拟合，代表性算法 SMOTE 通过对正例插值来产生额外的正例；</li>
+<li><strong>阈值移动</strong>，直接基于原始训练集学习，但在预测时使用上面的再放缩过的式子来进行分类决策，此时也就是基于正负类的实际比例来移动了预测分类的阈值</li>
+</ul>
+<p>再缩放也是代价敏感学习的基础：把上式中的 $\frac{m^-}{m^+}$ 换成 $\frac{cost_+}{cost_-}$ 即可，其中 $cost_+$ 是把正例误分为反例的代价，$cost_-$ 是把反例误分为正例的代价</p>
+<h2 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h2><h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><p>决策树基于树结构进行决策：叶结点对应决策结果，其他每个结点对应一个属性测试，每个结点包含的样本集合根据属性测试结果被划分到子结点中，根结点包含样本全集。从根结点到每个叶结点的路径对应一个判定测试序列</p>
+<p><img src="/images/image-20260922173630102.png" alt="image-20260922173630102"></p>
+<p>决策树学习的目的是为了产生一棵泛化能力强的决策树；决策树的生成是一个递归的“分而治之”过程——<strong>从当前样本集里挑一个最优属性来划分，再对每个分支得到的样本子集递归处理</strong></p>
+<p>有三种情形会导致递归返回：</p>
+<ol>
+<li>当前结点包含的样本全属于同一类别，无需划分</li>
+<li>当前属性集为空，或所有样本在所有属性上取值相同，无法划分</li>
+<li>当前结点包含的样本集合为空，不能划分</li>
+</ol>
+<p>情形 (2) 的处理是把当前结点标记为叶结点、类别取为该结点所含样本最多的类别，这实际上是在利用当前结点的后验分布；情形 (3) 同样标记为叶结点，但类别取为其<strong>父结点</strong>所含样本最多的类别，因为此时结点里没有样本可用，只能把父结点的样本分布当作当前结点的先验分布。</p>
+<h3 id="划分选择"><a href="#划分选择" class="headerlink" title="划分选择"></a>划分选择</h3><p><strong>决策树学习的关键是如何选择最优划分属性</strong>。随着划分不断进行，我们希望分支结点包含的样本尽可能属于同一类别，即结点的“纯度”越来越高，于是需要一种能度量纯度、并能比较不同属性划分效果的指标</p>
+<p><strong>信息熵</strong>是度量样本集合纯度最常用的指标。设当前样本集合 $D$ 中第 $k$ 类样本所占比例为 $p_k$（$k = 1, 2, \dots, |\mathcal{Y}|$）：</p>
+<p>$$<br>\mathrm{Ent}(D) = -\sum_{k=1}^{|\mathcal{Y}|} p_k \log_2 p_k<br>$$</p>
+<p>（约定若 $p = 0$ 则 $p\log_2 p = 0$）$\mathrm{Ent}(D)$ 的值越小，$D$ 的纯度越高，它的最小值是 $0$、最大值是 $\log_2|\mathcal{Y}|$。</p>
+<blockquote>
+<p>假设某事件概率为 $p$ ，其信息量为 $I(p)$，则应满足：</p>
+<ul>
+<li>$p$ 越小 $I(p)$ 越大；通俗理解就是<strong>事件更难被预测，一旦发生，消除的不确定性更多</strong></li>
+<li>对于独立事件 $p1$ 和 $p2$ 满足 $I(p1p2) = I(p1) + I(p2)$</li>
+</ul>
+<p>则一个很自然的函数就是 $I(p) = -\log_2(p)$</p>
+<p>那么以上信息熵公式就是计算 $D$ 中的平均信息量：熵越小，说明样本越纯、越可预测；熵越大，说明类别越混杂、越难猜</p>
+</blockquote>
+<p>假定离散属性 $a$ 有 $V$ 个可能取值 ${a^1, a^2, \dots, a^V}$，用 $a$ 划分就会产生 $V$ 个分支结点，其中第 $v$ 个分支结点包含 $D$ 中所有在 $a$ 上取值为 $a^v$ 的样本，记为 $D^v$。用信息熵来度量纯度、并考虑到各分支结点样本数不同（样本越多影响越大，故按 $\frac{|D^v|}{|D|}$ 加权），就得到用属性 $a$ 划分所获得的“信息增益”：<br>$$<br>\mathrm{Gain}(D, a) = \mathrm{Ent}(D) - \sum_{v=1}^{V}\frac{|D^v|}{|D|}\mathrm{Ent}(D^v)<br>$$</p>
+<p>前一项是划分前信息熵，后一项是划分后各子集的信息熵按样本占比的加权平均，两者之差就是不确定性下降的幅度</p>
+<p>信息增益越大，说明用 $a$ 划分带来的“纯度提升”越大，因此可选 $a^* = \arg\max_{a \in A}\mathrm{Gain}(D,a)$ 作为划分属性；这就是ID3决策树学习算法</p>
+<p>不过每个子集 $D^{v}$ 越小，子集内部就越纯，$\mathrm{Ent}(D^v)$ 就越小；<strong>也就是可能产生过度分支、泛化能力很弱的决策树</strong></p>
+<p>为减少这种偏好的不利影响，C4.5决策树算法 改用“增益率”：<br>$$<br>\mathrm{Gain_ratio}(D, a) = \frac{\mathrm{Gain}(D, a)}{IV(a)}, \qquad<br>IV(a) = -\sum_{v=1}^{V}\frac{|D^v|}{|D|}\log_2\frac{|D^v|}{|D|}<br>$$</p>
+<p>其中 $IV(a)$ 称为属性 $a$ 的“固有值”，$a$ 的可能取值数目越多（$V$ 越大），$IV(a)$ 通常越大，于是惩罚了过多的分支</p>
+<p>但增益率反过来又会偏好可取值数目较少的属性，所以 C4.5 的做法是一个折中的启发式：先从候选属性中找出信息增益高于平均水平的属性，再从中选择增益率最高的</p>
+<p>CART 决策树则使用“基尼指数”：</p>
+<p>$$<br>\mathrm{Gini}(D) = \sum_{k=1}^{|\mathcal{Y}|}\sum_{k’ \neq k}p_kp_{k’} = 1 - \sum_{k=1}^{|\mathcal{Y}|}p_k^2<br>$$</p>
+<p>$\mathrm{Gini}(D)$ 显然就是从 $D$ 中随机抽取两个样本、其类别标记不一致的概率，因此越小纯度越高；据此，基尼指数定义为：<br>$$<br>\mathrm{Gini_index}(D, a) = \sum_{v=1}^{V}\frac{|D^v|}{|D|}\mathrm{Gini}(D^v)<br>$$<br>在候选属性集合 $A$ 中选择使划分后基尼指数最小者，即 $a^* = \arg\min_{a\in A}\mathrm{Gini_index}(D,a)$</p>
+<p>信息熵与基尼指数只是纯度的两种度量，二者实际差别不大</p>
+<h3 id="剪枝处理"><a href="#剪枝处理" class="headerlink" title="剪枝处理"></a>剪枝处理</h3><p><strong>剪枝是决策树对付过拟合的主要手段</strong></p>
+<p>为了尽可能正确分类训练样本，结点划分会不断重复，有时分支过多，以致把训练集自身的一些特点当成所有数据都具有的一般性质。剪枝就是主动去掉一些分支来降低过拟合风险</p>
+<ul>
+<li><strong>预剪枝</strong>是在决策树生成过程中，对每个结点在划分前先进行估计：若当前结点的划分不能带来决策树泛化性能提升，就停止划分并将当前结点标记为叶结点</li>
+</ul>
+<blockquote>
+<p>但预剪枝基于“贪心”本质，有些分支的当前划分虽不能提升泛化性能、甚至可能暂时下降，在其基础上进行的后续划分却可能显著提高性能，预剪枝禁止了这些分支展开，从而带来欠拟合的风险</p>
+</blockquote>
+<ul>
+<li><strong>后剪枝</strong>是先由训练集生成一棵完整的决策树，然后自底向上地考察非叶结点：若将该结点领衔的子树替换为叶结点能带来泛化性能提升，就把该子树替换成叶结点</li>
+</ul>
+<blockquote>
+<p>后剪枝通常比预剪枝保留了更多的分支，一般情形下欠拟合风险很小、泛化性能往往优于预剪枝；代价是它要在生成完整决策树之后、自底向上地对所有非叶结点逐一考察，训练时间开销比未剪枝决策树和预剪枝决策树都要大得多</p>
+</blockquote>
+<h3 id="连续属性值的处理"><a href="#连续属性值的处理" class="headerlink" title="连续属性值的处理"></a>连续属性值的处理</h3><p>连续属性的可取值数量不是有限可取的，不能直接根据取值来划分结点，因此需要先做离散化，最简单的策略是二分法：</p>
+<p>给定样本集 $D$ 和连续属性 $a$，假定 $a$ 在 $D$ 上出现了 $n$ 个不同的取值，从小到大排序为 ${a^1, a^2, \dots, a^n}$。对相邻取值 $a^i$ 与 $a^{i+1}$ 来说，划分点 $t$ 在区间 $[a^i, a^{i+1})$ 中取任意值所产生的划分结果都相同，因此可只考察包含 $n-1$ 个元素的中位点集合：</p>
+<p>$$<br>T_a = \left{\frac{a^i + a^{i+1}}{2} \mid 1 \le i \le n-1\right}<br>$$</p>
+<p>然后像离散属性值一样考察这些划分点，选取使信息增益最大的划分点：<br>$$<br>\mathrm{Gain}(D,a) = \max_{t\in T_a}\mathrm{Gain}(D,a,t)<br>$$<br>其中<br>$$<br>\mathrm{Gain}(D,a,t) = \mathrm{Ent}(D) - \sum_{\lambda \in {-,+}}\frac{|D_t^\lambda|}{|D|}\mathrm{Ent}(D_t^\lambda)<br>$$<br>$D_t^-$ 与 $D_t^+$ 分别是属性 $a$ 取值不大于 $t$、大于 $t$ 的样本子集。注意与离散属性不同：若当前结点划分属性为连续属性，该属性还可在其后代结点中继续作为划分属性使用（因为它还可以有别的划分点）</p>
+<h3 id="缺失属性值的处理"><a href="#缺失属性值的处理" class="headerlink" title="缺失属性值的处理"></a>缺失属性值的处理</h3><p>现实任务中样本往往在某些属性上没有取值，这带来两个问题：如何在属性值缺失的情况下选择划分属性，以及给定划分属性后如何划分取值缺失的样本。</p>
+<p>解决办法是给每个样本赋予一个权重 $w_{\vec{x}}$（根结点中各样本权重初始化为 $1$），并只依据<strong>在属性 $a$ 上没有缺失值</strong>的样本来判断 $a$ 的优劣：令 $\tilde{D}$ 表示 $D$ 中在 $a$ 上无缺失值的样本子集，$\tilde{D}^v$ 表示 $\tilde{D}$ 中在 $a$ 上取值为 $a^v$ 的样本子集，$\tilde{D}<em>k$ 表示 $\tilde{D}$ 中属于第 $k$ 类的样本子集，再定义<br>$$<br>\rho = \frac{\sum</em>{\vec{x}\in\tilde{D}}w_{\vec{x}}}{\sum_{\vec{x}\in D}w_{\vec{x}}}, \qquad<br>\tilde{p}<em>k = \frac{\sum</em>{\vec{x}\in\tilde{D}<em>k}w</em>{\vec{x}}}{\sum_{\vec{x}\in\tilde{D}}w_{\vec{x}}}, \qquad<br>\tilde{r}<em>v = \frac{\sum</em>{\vec{x}\in\tilde{D}^v}w_{\vec{x}}}{\sum_{\vec{x}\in\tilde{D}}w_{\vec{x}}}<br>$$</p>
+<p>三者分别是无缺失样本所占的比例、无缺失样本中第 $k$ 类所占的比例、无缺失样本中在 $a$ 上取值为 $a^v$ 的样本所占的比例。把信息增益的公式改成</p>
+<p>$$<br>\mathrm{Gain}(D, a) = \rho \times \mathrm{Gain}(\tilde{D}, a) = \rho \times \left(\mathrm{Ent}(\tilde{D}) - \sum_{v=1}^{V}\tilde{r}_v,\mathrm{Ent}(\tilde{D}^v)\right)<br>$$</p>
+<p>其中<br>$$<br>\mathrm{Ent}(\tilde{D}) = -\sum_{k=1}^{|\mathcal{Y}|} \tilde{p}_k \log_2 \tilde{p}<em>k<br>$$<br>即可用它来选择划分属性，<strong>通俗来看就是先排除存在缺失值的样本的干扰来计算信息增益，然后乘以无缺样本和全体样本的比例系数以合理化其在全体样本中的影响</strong>。至于如何划分样本：若样本 $\vec{x}$ 在划分属性 $a$ 上的取值已知，就把它划入与其取值对应的子结点，权值保持为 $w</em>{\vec{x}}$；若取值未知，就把 $\vec{x}$ <strong>同时划入所有子结点</strong>，并在与属性值 $a^v$ 对应的子结点中把权值调整为 $\tilde{r}<em>v \cdot w</em>{\vec{x}}$ ：直观地说，就是让同一个样本以不同的概率划入到不同的子结点中去。</p>
+<h3 id="多变量决策树"><a href="#多变量决策树" class="headerlink" title="多变量决策树"></a>多变量决策树</h3><p>姑且了解一下其思想</p>
+<p>把每个属性视为坐标空间中的一个坐标轴，$d$ 个属性描述的样本就对应 $d$ 维空间中的一个数据点，对样本分类就意味着在这个坐标空间中寻找不同类样本之间的分类边界。决策树所形成的分类边界有一个明显的特点：<strong>轴平行</strong>，即分类边界由若干个与坐标轴平行的分段组成</p>
+<p><img src="/images/image-20260922214015381.png" alt="image-20260922214015381"></p>
+<p>这种边界的好处是每一段划分都直接对应某个属性的取值，学习结果有较好的可解释性；但当真实分类边界比较复杂时，必须用很多段划分才能获得较好的近似，此时的决策树会相当复杂，又因要进行大量属性测试，预测时间开销也很大</p>
+<p>若能使用斜的划分边界，决策树模型将大为简化。“多变量决策树”（亦称“斜决策树”）就是能实现这种斜划分、甚至更复杂划分的决策树：它的非叶结点不再是仅对某个属性进行测试，而是对属性的线性组合进行测试，即每个非叶结点是一个形如</p>
+<p>$$<br>\sum_{i=1}^{d} w_i x_i + b = 0<br>$$</p>
+<p>的线性分类器，其中 $w_i$ 是属性 $x_i$ 的权重，$w_i$ 与 $b$ 可在该结点所含的样本集和属性集上学得</p>
+<p><img src="/images/image-20260922214041272.png" alt="image-20260922214041272"></p>
+<p>于是与传统的“单变量决策树”不同，多变量决策树的学习过程不再是为每个非叶结点寻找一个最优划分属性，而是试图为该结点建立一个合适的线性分类器（例如 OC1 先贪心地寻找各属性的最优权值，再对分类边界做随机扰动以图更好）</p>
+<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://r3t2.top">r3t2</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://r3t2.top/2026/09/16/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E9%9A%8F%E8%AE%B0/">https://r3t2.top/2026/09/16/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E9%9A%8F%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://r3t2.top" target="_blank">r3t2's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></div><div class="post-share"><div class="social-share" data-image="/img/saber_flower.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/05/07/%E5%AE%9E%E7%8E%B0OS%E8%AE%B0%E5%BD%95-%E7%BC%96%E5%86%99%E7%A1%AC%E7%9B%98%E9%A9%B1%E5%8A%A8/" title="实现OS记录:编写硬盘驱动"><img class="cover" src="/img/dio.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">实现OS记录:编写硬盘驱动</div></div><div class="info-2"><div class="info-item-1">0x00偏硬件的部分就不赘述了，毕竟基本过时了。 0x01 idle 线程 和 thread_yield()还记得在此前的 cpu 任务调度函数中 123456void task_schedule(void){ 	/*...*/    ASSERT(!list_empty(&amp;thread_ready_list));    /*...*/}  这里断言就绪队列不为空。 但是我们这里硬盘驱动必然要和硬盘设备打交道，必然会等待硬盘IO，等待的时候不可能一直占用 cpu，此时就会阻塞自己调度其他线程。在 kernel 主线程初始化硬盘的时候，等待硬盘IO时阻塞自己，然而此时没有其他线程，这不就出问题了？ 此前因为没有 kernel 主线程阻塞自己的场景，才有这个断言。后续必然会有类似场景，所有线程都未就绪，此时必须要设置一个“兜底”的线程，让 cpu 休息，而不是空转。 1234567891011121314151617181920212223242526272829303132333435// 系统空闲的时候运行的闲逛线程, 不浪费cpustatic...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/07/07/malloc%E4%BD%8D%E4%BA%8E%E6%A0%88%E4%B8%8A%E7%9A%84chunk/" title="malloc位于栈上的chunk"><img class="cover" src="/img/dio.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-07</div><div class="info-item-2">malloc位于栈上的chunk</div></div><div class="info-2"><div class="info-item-1">0x00 Background笔者打nssctf上的一题，记录一下。pwn攻击不应该孤立的看。换句话说，要无所不用其极，哪种攻击好使就用哪种。现在就来浅浅分析一下在堆中对栈的攻击。（手法很多，后面慢慢学慢慢补充吧 0x01 利用environ变量以下调试以[NSSRound#21Basic]want_girlfriend（glibc2.35）的程序来演示。在linux环境下，程序存在一个全局变量(char**)environ，位于 libc 数据段，与 libc_base 存在固定偏移 1environ_addr=libcbase+libc.sym["environ"]  environ指向一个指针数组，数组中每个指针指向一个环境变量字符串，而环境变量字符串是位于栈区的。 1234pwndbg&gt; p &amp;environ$1 = (&lt;data variable, no debug info&gt; *) 0x7ffff7e22200 &lt;environ&gt;pwndbg&gt; x/gx...</div></div></div></a><a class="pagination-related" href="/2025/09/08/%E4%BB%8E%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%E5%87%BA%E5%8F%91%E7%9A%84%E5%85%B3%E4%BA%8Eprintf%E4%B8%AD%E5%A4%84%E7%90%86fmtstr%E9%83%A8%E5%88%86%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="从一个问题出发的关于printf中处理fmtstr部分源码分析"><img class="cover" src="/img/dio.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-08</div><div class="info-item-2">从一个问题出发的关于printf中处理fmtstr部分源码分析</div></div><div class="info-2"><div class="info-item-1">0x00在第六届强网拟态线下赛的一道格式化字符串漏洞题目中，遇到了一个情况没有想通，找了个时间分析了一下 printf的源码（glibc2.31），分析清楚原因了 0x01 issue奇怪合理的现象 123payload = '%{}c'.format(printf_ret).encode() + b"%11$hn" + \        '%{}c'.format(0x10000 - printf_ret + 0x23).encode() + b"%39$hhn"io.send(payload)  最初我是这样写的，调试发现仅仅成功修改了跳板，而目标，也就是printf的返回地址却没有修改到 123payload = b'%p'*9 + '%{}c'.format(printf_ret - 90).encode() + b"%hn" + \       ...</div></div></div></a><a class="pagination-related" href="/2025/07/04/%E4%B8%8D%E5%90%8C%E7%89%88%E6%9C%AC%E4%B8%8Bglibc%E6%9C%89%E5%85%B3%E5%A0%86%E7%9A%84%E7%AE%A1%E7%90%86%E5%92%8C%E4%BF%9D%E6%8A%A4/" title="不同版本下glibc有关堆的管理和保护"><img class="cover" src="/img/saber_flower.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-04</div><div class="info-item-2">不同版本下glibc有关堆的管理和保护</div></div><div class="info-2"><div class="info-item-1">0x00记录一下不同版本glibc下的堆管理保护机制的变化(开个坑，以后慢慢记录补充先贴上几篇参考博客不同版本glibc的堆管理和新增保护机制 - Luexpglibc各版本的堆保护 | jkilopu’s blogGlibc中堆管理的变化 | 白里个白Glibc高版本堆利用方法总结 - LynneHuan - 博客园然后ubuntu和glibc不同版本的对应关系 12345678910111213ubuntu-libc version2.23=“16.04”2.24=“17.04”2.26=“17.10”2.27=“18.04”2.28=“18.10”2.29=“19.04”2.30=“19.10”2.31=“20.04”2.32=“20.10”2.33=“21.04”2.34=“22.04”  0x01 关于tcachebins在glibc2.26+，引入了tcachebins有两个比较关键的函数tcache_get()和tcache_put()(以下为glibc2.28中的源码) 1234567891011121314151617181920static...</div></div></div></a><a class="pagination-related" href="/2025/07/01/%E5%85%B3%E4%BA%8Efastbin-attack%E4%B8%8Eunsortedbin-leak/" title="关于fastbin attack与unsortedbin leak"><img class="cover" src="/img/saber_flower.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-01</div><div class="info-item-2">关于fastbin attack与unsortedbin leak</div></div><div class="info-2"><div class="info-item-1">0x00以三道循序渐进的题目为例来分析吧。 0x01 hitcontraining_uaf / hacknote复盘/uaf/heapoverflow题目源码如下 123456789101112131415161718192021222324252627282930313233343536373839404142int __cdecl __noreturn main(int argc, const char **argv, const char **envp){  int v3; // eax  char buf[4]; // [esp+0h] [ebp-Ch] BYREF  int *p_argc; // [esp+4h] [ebp-8h]  p_argc = &amp;argc;  setvbuf(stdout, 0, 2, 0);  setvbuf(stdin, 0, 2, 0);  while ( 1 )  {    while ( 1 )    {      menu();      read(0, buf,...</div></div></div></a><a class="pagination-related" href="/2025/07/27/%E5%85%B3%E4%BA%8Ehouse-of-apple/" title="关于house of apple"><img class="cover" src="/img/saber_flower.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-27</div><div class="info-item-2">关于house of apple</div></div><div class="info-2"><div class="info-item-1">0x00在复现LitCTF2024的heap-2.39时候遇到了house of apple，既然碰到了，那么就学习一下吧！（其实在上学期校赛的时候就碰到了） 0x01 house of apple 原理先贴上roderick01师傅的原创文章镇帖（[原创] House of apple 一种新的glibc中IO攻击方法 (1)-Pwn-看雪-安全社区|安全招聘|kanxue.com[原创] House of apple 一种新的glibc中IO攻击方法 (2)-Pwn-看雪-安全社区|安全招聘|kanxue.com[原创]House of apple 一种新的glibc中IO攻击方法 (3)-Pwn-看雪-安全社区|安全招聘|kanxue.com 我们调试demo （姑且先看apple2） _IO_wfile_overflow1234_IO_wfile_overflow    _IO_wdoallocbuf        _IO_WDOALLOCATE            *(fp-&gt;_wide_data-&gt;_wide_vtable +...</div></div></div></a><a class="pagination-related" href="/2025/07/27/%E5%85%B3%E4%BA%8E-IO-FILE/" title="关于_IO_FILE"><img class="cover" src="/img/dio.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-27</div><div class="info-item-2">关于_IO_FILE</div></div><div class="info-2"><div class="info-item-1">0x00总结记录一下_IO_FILE的基础知识参考博客linux IO_FILE 利用_io list all结构体-CSDN博客【IO_FILE】源码详解 | Loora1N’s Blog | 鹭雨【PWN】iofile | 狼组安全团队公开知识库 0x01 _IO_FILE结构FILE 在 Linux 系统的标准 IO 库中是用于描述文件的结构，称为文件流。 FILE 结构在程序执行 fopen 等函数时会进行创建，并分配在堆中。我们常定义一个指向 FILE 结构的指针来接收这个返回值。FILE 结构定义在 libio.h 中，如下所示 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566struct _IO_FILE {  int _flags;       /* High-order word is _IO_MAGIC; rest is flags. */#define...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/Rick.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info-name">r3t2</div><div class="author-info-description">on the way</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">54</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">36</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/fuckth3w0r1d"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">I am learning...</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E9%9A%8F%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">西瓜书学习随记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%AA%E8%AE%BA"><span class="toc-number">1.1.</span> <span class="toc-text">绪论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NFL-No-Free-Lunch-%E5%AE%9A%E7%90%86"><span class="toc-number">1.1.1.</span> <span class="toc-text">NFL(No-Free-Lunch) 定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0%E4%B8%8E%E9%80%89%E6%8B%A9"><span class="toc-number">1.2.</span> <span class="toc-text">模型评估与选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%88%92%E5%88%86"><span class="toc-number">1.2.1.</span> <span class="toc-text">数据集划分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E5%BA%A6%E9%87%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text">性能度量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%8E%87%E4%B8%8E%E7%B2%BE%E5%BA%A6"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">错误率与精度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E5%87%86%E7%8E%87%E3%80%81%E6%9F%A5%E5%85%A8%E7%8E%87%E4%B8%8E-F1"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">查准率、查全率与 F1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ROC-%E4%B8%8E-AUC"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">ROC 与 AUC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E4%BB%B7%E6%95%8F%E6%84%9F%E9%94%99%E8%AF%AF%E7%8E%87%E4%B8%8E%E4%BB%A3%E4%BB%B7%E6%9B%B2%E7%BA%BF"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">代价敏感错误率与代价曲线</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E6%A3%80%E9%AA%8C"><span class="toc-number">1.2.3.</span> <span class="toc-text">比较检验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%8F%E5%B7%AE%E4%B8%8E%E6%96%B9%E5%B7%AE"><span class="toc-number">1.2.4.</span> <span class="toc-text">偏差与方差</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">线性模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%BD%A2%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">基本形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="toc-number">1.3.2.</span> <span class="toc-text">线性回归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%95%B0%E5%87%A0%E7%8E%87%E5%9B%9E%E5%BD%92"><span class="toc-number">1.3.3.</span> <span class="toc-text">对数几率回归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%88%A4%E5%88%AB%E5%88%86%E6%9E%90"><span class="toc-number">1.3.4.</span> <span class="toc-text">线性判别分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%88%86%E7%B1%BB%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.3.5.</span> <span class="toc-text">多分类学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB%E5%88%AB%E4%B8%8D%E5%B9%B3%E8%A1%A1%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.6.</span> <span class="toc-text">类别不平衡问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91"><span class="toc-number">1.4.</span> <span class="toc-text">决策树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.1.</span> <span class="toc-text">基本流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%92%E5%88%86%E9%80%89%E6%8B%A9"><span class="toc-number">1.4.2.</span> <span class="toc-text">划分选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D%E5%A4%84%E7%90%86"><span class="toc-number">1.4.3.</span> <span class="toc-text">剪枝处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E5%B1%9E%E6%80%A7%E5%80%BC%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-number">1.4.4.</span> <span class="toc-text">连续属性值的处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E5%A4%B1%E5%B1%9E%E6%80%A7%E5%80%BC%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-number">1.4.5.</span> <span class="toc-text">缺失属性值的处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%8F%98%E9%87%8F%E5%86%B3%E7%AD%96%E6%A0%91"><span class="toc-number">1.4.6.</span> <span class="toc-text">多变量决策树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.5.</span> <span class="toc-text">神经网络</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/09/16/%E8%A5%BF%E7%93%9C%E4%B9%A6%E5%AD%A6%E4%B9%A0%E9%9A%8F%E8%AE%B0/" title="西瓜书学习随记">西瓜书学习随记</a><time datetime="2026-09-16T09:17:17.000Z" title="发表于 2026-09-16 17:17:17">2026-09-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/07/%E5%AE%9E%E7%8E%B0OS%E8%AE%B0%E5%BD%95-%E7%BC%96%E5%86%99%E7%A1%AC%E7%9B%98%E9%A9%B1%E5%8A%A8/" title="实现OS记录:编写硬盘驱动">实现OS记录:编写硬盘驱动</a><time datetime="2026-05-07T09:03:31.000Z" title="发表于 2026-05-07 17:03:31">2026-05-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/21/%E5%AE%9E%E7%8E%B0OS%E8%AE%B0%E5%BD%95-%E5%9F%BA%E4%BA%8E%E4%B8%AD%E6%96%AD%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E4%BB%A5%E5%8F%8A%E5%AE%8C%E5%96%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="实现OS记录:基于中断的系统调用以及完善内存管理">实现OS记录:基于中断的系统调用以及完善内存管理</a><time datetime="2026-04-21T08:52:37.000Z" title="发表于 2026-04-21 16:52:37">2026-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/06/%E5%AE%9E%E7%8E%B0OS%E8%AE%B0%E5%BD%95-%E4%BB%8E%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B/" title="实现OS记录:从内核线程创建用户进程">实现OS记录:从内核线程创建用户进程</a><time datetime="2026-04-06T07:27:34.000Z" title="发表于 2026-04-06 15:27:34">2026-04-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/04/%E5%AE%9E%E7%8E%B0OS%E8%AE%B0%E5%BD%95-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" title="实现OS记录:输入输出">实现OS记录:输入输出</a><time datetime="2026-04-04T05:46:18.000Z" title="发表于 2026-04-04 13:46:18">2026-04-04</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent;"><div id="footer-wrap"><div class="copyright">©2025 - 2026 By r3t2</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'ams',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="Hello,World" data-fontsize="15px" data-random="false" async="async"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="天青色等烟雨，而我在等你" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
